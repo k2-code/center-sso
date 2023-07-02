@@ -1,0 +1,105 @@
+server:
+  port: 8042
+spring:
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 100MB
+  profiles:
+    active: dev
+  application:
+    name: center-sso
+  #spring.autoconfigure.exclude=org.springframework.boot.autoconfigure.web.servlet.MultipartAutoConfiguration
+  main:
+    allow-bean-definition-overriding: true
+
+  cloud:
+    nacos:
+      discovery:
+        username: nacos
+        password: nacos
+        server-addr: 127.0.0.1:8848
+        namespace: public
+#      config:
+#        server-addr: 127.0.0.1:8848
+#        file-extension: yaml
+#        enabled: true
+#        refresh-enabled: true
+#        name: center-sso
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driver-class-name: com.mysql.jdbc.Driver
+      url: jdbc:mysql://localhost:3306/center-sso?useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      password: 123456
+      min-idle: 5
+      max-active: 200
+      max-wait: 60000
+      time-between-connect-error-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      #validation-query: SELECT 1 FROM DUAL
+      test-while-idle: true
+      test-on-borrow: false
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      keep-alive: true
+      use-local-session-state: true
+      #connectionProperties: socketTimeout=3000;connectTimeout=1200
+    # jpa:
+    #   database: POSTGRESQL
+    #   show-sql: true
+    #   properties:
+    #     hibernate:
+    #       temp:
+    #         use_jdbc_metadata_defaults: false
+    #redis要配置#
+  redis:
+    host: 192.168.124.3
+    port: 49153
+    timeout: 3000ms
+    password: redispw
+    #redis自测地址
+    database: 0
+    #redisdemo地址
+#    database: 1
+logging:
+  level:
+    root: info
+  file:
+    name: ../Logs/auth/auth.log
+permit:
+  http_urls: /oauth/user/token , /oauth/refresh/token , /oauth/client/token , /login
+  oauth_urls: /oauth/user/token , /oauth/refresh/token , /oauth/client/token  , /oauth/authorize ,/user/logout
+security:
+  oauth2:
+    token:
+      store:
+        type: redis
+#dubbo:
+#  scan:
+#    base-packages: com.philisense.auth.dubboservice
+#  protocol:
+#    name: dubbo
+#    port: -1
+#verify:
+#  code:
+#    expire: 10
+#philisense:
+#  pwd:
+#    default: met123456
+#  login:
+#    interval: 30         # 距离上次登录时间间隔大于此值 需邮箱验证 单位 天
+#    disabledday: 90       # 距离上次登录时间间隔大于此值 需管理员解锁 单位 天
+#  mail:
+#    from: 1032686976@qq.com
+#pwd:
+#  expire: 90 # 单位 天
+#user:
+#  lock:
+#    range: 24 #单位 小时
+#    expire: 5 #单位 分钟
+#    count: 5 #单位 次
+#  login:
+#    count: 1000
