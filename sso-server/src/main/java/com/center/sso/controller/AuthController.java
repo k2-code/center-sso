@@ -5,8 +5,8 @@ import com.center.sso.enums.OAuthResultCode;
 import com.center.sso.exception.OAuthServerWebResponseExceptionTranslator;
 import com.center.sso.model.LoginVal;
 import com.center.sso.model.SysConstant;
+import com.center.sso.phili.utils.ResultResponse;
 import com.center.sso.utils.OauthUtil;
-import com.philisense.utils.ResultResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -38,42 +38,44 @@ public class AuthController {
 
 
     @GetMapping("/logout")
-    public ResultResponse logout(){
+    public ResultResponse logout() {
         LoginVal loginVal = OauthUtil.getCurrentUser();
-        log.info("令牌唯一ID：{},过期时间：{}",loginVal.getJti(),loginVal.getExpireIn());
+        log.info("令牌唯一ID：{},过期时间：{}", loginVal.getJti(), loginVal.getExpireIn());
         //这个jti放入redis中，并且过期时间设置为token的过期时间
-        stringRedisTemplate.opsForValue().set(SysConstant.JTI_KEY_PREFIX+loginVal.getJti(),"",loginVal.getExpireIn(), TimeUnit.SECONDS);
-        return new ResultResponse(0,"注销成功",null);
+        stringRedisTemplate.opsForValue().set(SysConstant.JTI_KEY_PREFIX + loginVal.getJti(), "", loginVal.getExpireIn(), TimeUnit.SECONDS);
+        return new ResultResponse(0, "注销成功", null);
     }
 
     /**
      * 重写 /oauth/token,对返回结果自定义
+     *
      * @param principal
      * @param parameters
      * @return
      */
     @PostMapping("/token")
     public ResultResponse getToken(HttpServletResponse httpServletResponse, Principal principal, @RequestParam
-            Map<String, String> parameters){
+            Map<String, String> parameters) {
         OAuth2AccessToken body = null;
         try {
             body = tokenEndpoint.postAccessToken(principal, parameters).getBody();
-        }catch (Exception e){
-                return  translator.translate(e).getBody();
+        } catch (Exception e) {
+            log.error("exception:{}", e.getMessage(), e);
+            return translator.translate(e).getBody();
         }
-        if (null == body){
-                return new ResultResponse(OAuthResultCode.UNAUTHORIZED.getCode(),
-                        OAuthResultCode.UNAUTHORIZED.getMsg());
+        if (null == body) {
+            return new ResultResponse(OAuthResultCode.UNAUTHORIZED.getCode(),
+                    OAuthResultCode.UNAUTHORIZED.getMsg());
 
         }
         JSONObject token = new JSONObject();
-        token.put("access_token",body.getValue());
-        if (!parameters.get("grant_type").equals("refresh_token")){
-            token.put("refresh_token",body.getRefreshToken().getValue());
+        token.put("access_token", body.getValue());
+        if (!parameters.get("grant_type").equals("refresh_token")) {
+            token.put("refresh_token", body.getRefreshToken().getValue());
         }
-        token.put("token_type",body.getTokenType());
-        token.put("userId",body.getAdditionalInformation().get("userId"));
-        token.put("jti",body.getAdditionalInformation().get("jti"));
+        token.put("token_type", body.getTokenType());
+        token.put("userId", body.getAdditionalInformation().get("userId"));
+        token.put("jti", body.getAdditionalInformation().get("jti"));
         return new ResultResponse(token);
     }
 

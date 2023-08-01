@@ -2,10 +2,10 @@ package com.center.sso.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.center.sso.model.po.SysUser;
+import com.center.sso.phili.utils.PageParam;
+import com.center.sso.phili.utils.PageResponse;
 import com.center.sso.service.UserService;
-import com.philisense.utils.PageParam;
-import com.philisense.utils.PageResponse;
-import com.philisense.utils.ResultResponse;
+import com.center.sso.phili.utils.ResultResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

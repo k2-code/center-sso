@@ -1,8 +1,8 @@
 package com.center.sso.service;
 
 import com.center.sso.model.po.SysUser;
-import com.philisense.utils.PageParam;
-import com.philisense.utils.PageResponse;
+import com.center.sso.phili.utils.PageParam;
+import com.center.sso.phili.utils.PageResponse;
 
 import java.util.List;
 

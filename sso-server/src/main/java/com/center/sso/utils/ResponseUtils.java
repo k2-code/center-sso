@@ -1,7 +1,7 @@
 package com.center.sso.utils;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.philisense.utils.ResultResponse;
+import com.center.sso.phili.utils.ResultResponse;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;

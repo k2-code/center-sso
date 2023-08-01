@@ -2,7 +2,7 @@ package com.center.sso.exception;
 
 import com.center.sso.enums.OAuthResultCode;
 import com.center.sso.utils.ResponseUtils;
-import com.philisense.utils.ResultResponse;
+import com.center.sso.phili.utils.ResultResponse;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;

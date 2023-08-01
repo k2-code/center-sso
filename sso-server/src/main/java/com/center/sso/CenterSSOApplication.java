@@ -9,10 +9,10 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 @EnableDiscoveryClient
 @EnableAspectJAutoProxy
 @SpringBootApplication
-@ComponentScan(basePackages = {"com.philisense.*"})
-public class MeetCCSAuthApplication {
+//@ComponentScan(basePackages = {"com.center.*"})
+public class CenterSSOApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(MeetCCSAuthApplication.class,args);
+        SpringApplication.run(CenterSSOApplication.class,args);
     }
 }

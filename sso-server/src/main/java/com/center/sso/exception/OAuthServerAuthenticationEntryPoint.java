@@ -2,7 +2,7 @@ package com.center.sso.exception;
 
 import com.center.sso.enums.OAuthResultCode;
 import com.center.sso.utils.ResponseUtils;
-import com.philisense.utils.ResultResponse;
+import com.center.sso.phili.utils.ResultResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;

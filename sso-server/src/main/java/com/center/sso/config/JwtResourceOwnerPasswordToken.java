@@ -2,12 +2,15 @@ package com.center.sso.config;
 
 import com.center.sso.utils.RSACoderHelper;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AbstractTokenGranter;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -24,6 +27,9 @@ public class JwtResourceOwnerPasswordToken extends AbstractTokenGranter {
     private static final String GRANT_TYPE = "client_pwd";
 
     private final AuthenticationManager authenticationManager;
+
+//    @Autowired
+//    private PasswordEncoder passwordEncoder;
 
     public JwtResourceOwnerPasswordToken(AuthenticationManager authenticationManager, AuthorizationServerTokenServices tokenServices,
                                          ClientDetailsService clientDetailsService, OAuth2RequestFactory requestFactory) {
@@ -47,7 +53,7 @@ public class JwtResourceOwnerPasswordToken extends AbstractTokenGranter {
         }
         // Protect from downstream leaks of password
         parameters.remove("password");
-
+//        password = passwordEncoder.encode(password);
         Authentication userAuth = new UsernamePasswordAuthenticationToken(username, password);
         ((AbstractAuthenticationToken) userAuth).setDetails(parameters);
         try {

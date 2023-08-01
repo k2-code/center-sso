@@ -1,7 +1,7 @@
 package com.center.sso.exception;
 
 import com.center.sso.enums.OAuthResultCode;
-import com.philisense.utils.ResultResponse;
+import com.center.sso.phili.utils.ResultResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.oauth2.common.exceptions.InvalidGrantException;

@@ -1,5 +1,7 @@
 package com.center.sso.utils;
 
+import org.apache.commons.codec.binary.Base64;
+
 import javax.crypto.Cipher;
 import java.security.*;
 import java.security.interfaces.RSAPrivateKey;
@@ -162,47 +164,47 @@ public class RSACoderHelper {
 //     * @param args
 //     * @throws Exception
 //     */
-//    public static void main(String[] args) throws Exception {
-//
-//        String str = "111";
-//
-////        //初始化密钥
-////        //生成密钥对
-////        Map<String, Object> keyMap = RSACoderHelper.initKey();
-////        //公钥
-////        byte[] publicKey = RSACoderHelper.getPublicKey(keyMap);
-////        //私钥
-////        byte[] privateKey = RSACoderHelper.getPrivateKey(keyMap);
-////        System.out.println("公钥：" + Base64.encodeBase64String(publicKey));
-////        System.out.println("私钥：" + Base64.encodeBase64String(privateKey));
-////
-////        //公钥加密
-////        byte[] bytes = RSACoderHelper.encryptByPublicKey(str.getBytes(), publicKey);
-////        String s = Base64.encodeBase64String(bytes);
-////        System.out.println("公钥加密后数据：" + s);
-////
-////        //私钥解密
-////        byte[] bytes1 = Base64.decodeBase64(s);
-////        byte[] bytes2 = RSACoderHelper.decryptByPrivateKey(bytes1, privateKey);
-////        String s1 = new String(bytes2);
-////
-////        System.out.println("私钥解密后数据：" + s1);
-//
+    public static void main(String[] args) throws Exception {
+
+        String str = "111";
+
+//        //初始化密钥
+//        //生成密钥对
+//        Map<String, Object> keyMap = RSACoderHelper.initKey();
 //        //公钥
-//        String publicKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIlMTdt/m/+w0W3JEzJYnF2NyEhoGQEAsVxKQrstXCveyOqgwSyvnoIc+Z0rfmAcSTUfFEZLJqQmLHVmuvqHMG8CAwEAAQ==";
+//        byte[] publicKey = RSACoderHelper.getPublicKey(keyMap);
 //        //私钥
-//        String privateKey = "MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAiUxN23+b/7DRbckTMlicXY3ISGgZAQCxXEpCuy1cK97I6qDBLK+eghz5nSt+YBxJNR8URksmpCYsdWa6+ocwbwIDAQABAkBi8pHd0b6cbFLSeyoRi5jNN4QS4qq6dURdDcu/17XoiuRUupSLmNG95yRY7jRfN1NuR1yKRIRoPHjSDtiu1jWpAiEA8ewMEf6U6d/VEtfb6J6svs6t6wIhkP+cBjEff2SWEXsCIQCRSafyMxP7ld6K+A0vr6X6MBhaSy/Jd1/Aqw6rVcXonQIhALRj8swoLRoHUXZvhwb56o2Mx5qJSEY6kzj6wCXZ9xypAiB83RSdrxBJdHAidzS9+vNmpdcIIv4a46FDcL/WuIyycQIhAN8FWGeKRoche5roZm1e+Gekvz8P1tzKGs65ibALwcPV";
+//        byte[] privateKey = RSACoderHelper.getPrivateKey(keyMap);
+//        System.out.println("公钥：" + Base64.encodeBase64String(publicKey));
+//        System.out.println("私钥：" + Base64.encodeBase64String(privateKey));
+//
 //        //公钥加密
-//        byte[] bytes = RSACoderHelper.encryptByPublicKey(str.getBytes(),  Base64.decodeBase64(publicKey));
+//        byte[] bytes = RSACoderHelper.encryptByPublicKey(str.getBytes(), publicKey);
 //        String s = Base64.encodeBase64String(bytes);
 //        System.out.println("公钥加密后数据：" + s);
 //
 //        //私钥解密
 //        byte[] bytes1 = Base64.decodeBase64(s);
-//        byte[] bytes2 = RSACoderHelper.decryptByPrivateKey(bytes1, Base64.decodeBase64(privateKey));
+//        byte[] bytes2 = RSACoderHelper.decryptByPrivateKey(bytes1, privateKey);
 //        String s1 = new String(bytes2);
-//        System.out.println("解密后的数据：" + s1);
-//    }
+//
+//        System.out.println("私钥解密后数据：" + s1);
+
+        //公钥
+        String publicKey = "MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAIlMTdt/m/+w0W3JEzJYnF2NyEhoGQEAsVxKQrstXCveyOqgwSyvnoIc+Z0rfmAcSTUfFEZLJqQmLHVmuvqHMG8CAwEAAQ==";
+        //私钥
+        String privateKey = "MIIBVQIBADANBgkqhkiG9w0BAQEFAASCAT8wggE7AgEAAkEAiUxN23+b/7DRbckTMlicXY3ISGgZAQCxXEpCuy1cK97I6qDBLK+eghz5nSt+YBxJNR8URksmpCYsdWa6+ocwbwIDAQABAkBi8pHd0b6cbFLSeyoRi5jNN4QS4qq6dURdDcu/17XoiuRUupSLmNG95yRY7jRfN1NuR1yKRIRoPHjSDtiu1jWpAiEA8ewMEf6U6d/VEtfb6J6svs6t6wIhkP+cBjEff2SWEXsCIQCRSafyMxP7ld6K+A0vr6X6MBhaSy/Jd1/Aqw6rVcXonQIhALRj8swoLRoHUXZvhwb56o2Mx5qJSEY6kzj6wCXZ9xypAiB83RSdrxBJdHAidzS9+vNmpdcIIv4a46FDcL/WuIyycQIhAN8FWGeKRoche5roZm1e+Gekvz8P1tzKGs65ibALwcPV";
+        //公钥加密
+        byte[] bytes = RSACoderHelper.encryptByPublicKey(str.getBytes(),  Base64.decodeBase64(publicKey));
+        String s = Base64.encodeBase64String(bytes);
+        System.out.println("公钥加密后数据：" + s);
+
+        //私钥解密
+        byte[] bytes1 = Base64.decodeBase64(s);
+        byte[] bytes2 = RSACoderHelper.decryptByPrivateKey(bytes1, Base64.decodeBase64(privateKey));
+        String s1 = new String(bytes2);
+        System.out.println("解密后的数据：" + s1);
+    }
 
 
 }
